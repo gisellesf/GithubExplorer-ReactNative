@@ -1,9 +1,6 @@
 // ** Import React
 import React from "react";
 
-// ** Interface Color
-import color from "color";
-
 // ** Import Library Material React Native
 import {
   MD2LightTheme as DefaultTheme,
@@ -11,7 +8,7 @@ import {
 } from "react-native-paper";
 
 // ** Import React Native
-import { Appearance } from "react-native";
+import { Appearance, StatusBar } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 // ** Import Pages
@@ -39,7 +36,7 @@ const themeLight = {
     onErrorContainer: "rgb(65, 0, 2)",
     background: "rgb(255, 251, 255)",
     onBackground: "rgb(32, 26, 27)",
-    surface: "rgb(255, 251, 255)",
+    surface: "rgb(255, 245, 255)",
     onSurface: "rgb(32, 26, 27)",
     surfaceVariant: "rgb(243, 221, 224)",
     onSurfaceVariant: "rgb(82, 67, 70)",
@@ -95,7 +92,7 @@ const themeDark = {
     outlineVariant: "rgb(82, 67, 70)",
     shadow: "rgb(0, 0, 0)",
     scrim: "rgb(0, 0, 0)",
-    inverseSurface: "rgb(236, 224, 224)",
+    inverseSurface: "rgb(250, 238, 239)",
     inverseOnSurface: "rgb(53, 47, 48)",
     inversePrimary: "rgb(185, 12, 85)",
     elevation: {
@@ -118,6 +115,11 @@ const themeColor = Appearance.getColorScheme();
 export default function App() {
   return (
     <SafeAreaProvider>
+      <StatusBar
+        backgroundColor="transparent"
+        translucent
+        barStyle="light-content"
+      />
       <PaperProvider theme={themeColor == "dark" ? themeDark : themeLight}>
         <Home />
       </PaperProvider>
