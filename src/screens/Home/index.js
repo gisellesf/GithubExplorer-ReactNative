@@ -15,6 +15,10 @@ import githubServices from "../../services/githubServices";
 export default function Home() {
   const [searchResults, setSearchResults] = React.useState([]);
 
+  /**
+   * Realiza requisição de listar respositório com base no termo para pesquisa
+   * @param {*} searchQuery - termo utilizado na pesquisa de repositórios
+   */
   const handleSearch = async (searchQuery) => {
     try {
       const listRepositories = await githubServices.requestGetRepositories(

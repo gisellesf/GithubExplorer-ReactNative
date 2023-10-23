@@ -3,9 +3,35 @@ import React from "react";
 
 // ** Import Library Material React Native
 import { FlatList, StyleSheet, View } from "react-native";
-import { Card, Text, Button, Avatar } from "react-native-paper";
+import { Card, Text, Avatar } from "react-native-paper";
+
+// ** Imports Services
+import githubServices from "../../services/githubServices";
 
 export default function ListRepository({ data }) {
+  const [branchesResults, setBranchesResults] = React.useState([]);
+
+  /**
+   * Realiza requisição para lista de branches com base no 
+   * item/repositório clicado
+   * @param {*} ownerItem - termo name do usuário para requisição
+   * @param {*} repositoryItem - termo repositório para requisição
+   * 
+   */
+  const handleItemClick = async (ownerItem, repositoryItem) => {
+    console.log(ownerItem, repositoryItem);
+    try {
+      const response = await githubServices.requestGetBranches(
+        ownerItem,
+        repositoryItem
+      );
+
+      navigation.navigate("SecondList", { data: response.data });
+    } catch (error) {
+      console.error("Erro ao buscar informações do GitHub:", error.message);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -14,7 +40,7 @@ export default function ListRepository({ data }) {
         renderItem={({ item }) => (
           <Card
             style={styles.cardContainer}
-            onPress={() => console.log("card")}
+            onPress={() => handleItemClick(item.owner.login, item.name)}
           >
             <Card.Title
               title={item.full_name}
@@ -28,7 +54,7 @@ export default function ListRepository({ data }) {
                 />
               )}
             />
-            <Card.Content >
+            <Card.Content>
               <Text variant="titleLarge">{item.description}</Text>
             </Card.Content>
           </Card>
@@ -40,17 +66,17 @@ export default function ListRepository({ data }) {
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,    
+    flexGrow: 1,
   },
   cardContainer: {
     borderRadius: 10,
     marginHorizontal: 16,
     marginVertical: 5,
   },
-  cardTitle:{
-    fontSize: 15
+  cardTitle: {
+    fontSize: 15,
   },
-  cardSubtitle:{
-    paddingBottom:7,
+  cardSubtitle: {
+    paddingBottom: 7,
   },
 });
