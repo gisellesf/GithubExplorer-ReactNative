@@ -11,8 +11,11 @@ import {
 import { Appearance, StatusBar } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
-// ** Import Pages
-import Home from "./src/screens/Home";
+// ** Imports React Navigation / Stack
+import { NavigationContainer } from "@react-navigation/native";
+
+// ** Imports Component Router
+import Routes from "./src/routes/routes";
 
 const themeLight = {
   ...DefaultTheme,
@@ -58,7 +61,7 @@ const themeLight = {
     surfaceDisabled: "rgba(32, 26, 27, 0.12)",
     onSurfaceDisabled: "rgba(32, 26, 27, 0.38)",
     backdrop: "rgba(58, 45, 47, 0.4)",
-    accent: '#03dac4',
+    accent: "#03dac4",
   },
 };
 
@@ -106,7 +109,7 @@ const themeDark = {
     surfaceDisabled: "rgba(236, 224, 224, 0.12)",
     onSurfaceDisabled: "rgba(236, 224, 224, 0.38)",
     backdrop: "rgba(58, 45, 47, 0.4)",
-    accent: '#03dac6',
+    accent: "#03dac6",
   },
 };
 
@@ -121,7 +124,9 @@ export default function App() {
         barStyle="light-content"
       />
       <PaperProvider theme={themeColor == "dark" ? themeDark : themeLight}>
-        <Home />
+        <NavigationContainer>
+          <Routes />
+        </NavigationContainer>
       </PaperProvider>
     </SafeAreaProvider>
   );

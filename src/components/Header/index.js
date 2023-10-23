@@ -12,7 +12,6 @@ export default function Header() {
     <View>
       <Appbar.Header style={styles.content}>
         <Appbar.Content title="Github Explorer" />
-        <Appbar.Action icon="dots-vertical" />
       </Appbar.Header>
     </View>
   );
