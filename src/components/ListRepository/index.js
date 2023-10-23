@@ -5,28 +5,31 @@ import React from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import { Card, Text, Avatar } from "react-native-paper";
 
+// ** Import React Navegation
+import { useNavigation } from "@react-navigation/native";
+
 // ** Imports Services
 import githubServices from "../../services/githubServices";
 
 export default function ListRepository({ data }) {
-  const [branchesResults, setBranchesResults] = React.useState([]);
+
+  const navigation = useNavigation();
 
   /**
-   * Realiza requisição para lista de branches com base no 
+   * Realiza requisição para lista de branches com base no
    * item/repositório clicado
    * @param {*} ownerItem - termo name do usuário para requisição
    * @param {*} repositoryItem - termo repositório para requisição
-   * 
+   *
    */
   const handleItemClick = async (ownerItem, repositoryItem) => {
-    console.log(ownerItem, repositoryItem);
     try {
       const response = await githubServices.requestGetBranches(
         ownerItem,
         repositoryItem
       );
 
-      navigation.navigate("SecondList", { data: response.data });
+      navigation.navigate("screenBranches", { data: response });
     } catch (error) {
       console.error("Erro ao buscar informações do GitHub:", error.message);
     }
