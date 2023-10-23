@@ -7,7 +7,6 @@ import { Card, List  } from "react-native-paper";
 
 export default function ListBranches({ route }) {
   const { data } = route.params;
-  console.log(data);
   return (
     <View>
       <FlatList
